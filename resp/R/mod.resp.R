@@ -37,6 +37,13 @@ function(data, fixed, random, r_group,
     out = list()
     out[['UserDataFrame']] <- data
     out[['ChosenModelResponse']] <- response
+
+    # #debug
+    # cat('\n\n[debug] initial object names:',names(out),'\n\n')
+    # cat('[debug] initial object str:\n')
+    # print(str(out))
+    # print((out)[[2]])
+
     cat('[?] Starting modelization on ', length(response), ' response elements', fill = TRUE)
     cat('[+] Data row number: ', nrow(data), fill = TRUE)
 
@@ -124,5 +131,14 @@ function(data, fixed, random, r_group,
     if (choose_models) {
         out <- mod.choose(out)
     }
+
+    # #debug
+    # cat('\n\n[debug] final object names:',names(out),'\n\n')
+    # cat('[debug] ChosenModelResponse str:')
+    # print(str(out[[2]]))
+    # cat('\n variable names: ', names(out[[3]]),'\n\n')
+    # cat('\n last check_out object: \n')
+    # print(out[[length(names(out))]][['check_out']])
+
     return(out)
 }

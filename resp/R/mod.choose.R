@@ -2,7 +2,7 @@ mod.choose <-  function(models,sph_range=c(0.05,0.8),corr_range=c(0.4,0.8),pvalu
   ## Select model based on check_out table of each response variable
   if('mresp' %in% class(models)) {} else {stop('models object must be of class mresp')}
   response <- models[['ChosenModelResponse']]
-  if(('check_out' %in% models[[response[1]]])==FALSE) {mod.check(models)}
+  if(('check_out' %in% names(models[[response[1]]]))==FALSE) {mod.check(models)}
   named_range <- function(x,range,labels=c('Low','Mid','High')) {
     # Chose label based on range as [Low]|(Mid]_n|(High]
     range = sort(range)
