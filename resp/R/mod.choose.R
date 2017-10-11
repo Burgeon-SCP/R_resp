@@ -1,8 +1,9 @@
-mod.choose <-  function(models,sph_range=c(0.05,0.8),corr_range=c(0.4,0.8),pvalue_range=c(0.01,0.05),...) {
-  ## Select model based on check_out table of each response variable
+mod.choose <-  function(models, sph_range=c(0.05,0.8), corr_range=c(0.4,0.8), pvalue_range=c(0.01,0.05),...) {
+
+  ### Function to select model based on check_out table of each response variable for mresp models
   if('mresp' %in% class(models)) {} else {stop('models object must be of class mresp')}
-  response <- models[['ChosenModelResponse']]
-  if(('check_out' %in% names(models[[response[1]]]))==FALSE) {mod.check(models)}
+
+  # Define function to categorize significance
   named_range <- function(x,range,labels=c('Low','Mid','High')) {
     # Chose label based on range as [Low]|(Mid]_n|(High]
     range = sort(range)
@@ -15,6 +16,20 @@ mod.choose <-  function(models,sph_range=c(0.05,0.8),corr_range=c(0.4,0.8),pvalu
       }
     }
   }
+
+  # #debug
+  # cat('\n[debug] ChosenModelResponse values and str before choose:\n')
+  # print(models[['ChosenModelResponse']])
+  # str(models[['ChosenModelResponse']])
+
+  response <- models[['ChosenModelResponse']]
+  if(is.vector(response)) {} else {response <- response[,1]}
+
+  # Ensure that mresp object is checked
+  for (i in response) {
+    if(('check_out' %in% names(models[[i]]))==FALSE) {mod.check(models);break}
+  }
+
   mod_name <- c()
   sph_name <- c()
   corr_name <- c()

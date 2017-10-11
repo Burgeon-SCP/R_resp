@@ -1,0 +1,11 @@
+## resp to be developed file
+
+ - hide and redirect warning messages after lmer() calculation returned by mod.resp()
+        -could be printed on calculation due to model inner fails
+ - mresp.check() to analyse mresp object structure:
+        - has UserDataFrame and ChosenModelResponse
+        - is a list of list execpt the two previous dataframes
+        - each variable is a list of models [ with a 'check_out' dataframe if checked ]
+        - has mod.choose() results?
+        - has errors?
+ -

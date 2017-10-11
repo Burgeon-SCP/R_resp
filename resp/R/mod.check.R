@@ -49,9 +49,9 @@ mod.check <- function(models, omit_NA=TRUE) {
           Pr_vs_all = all,
           Sphericity = sphere,
           Correlation = correl,
-          AIC_ord = order(aic, decreasing = FALSE),
-          BIC_ord = order(bic, decreasing = FALSE),
-          logLik_ord = order(lglik, decreasing = TRUE)
+          AIC = aic,
+          BIC = bic,
+          logLik = lglik
           )
         row.names(var_stats) <- mod_names
         models[[var]][['check_out']] <- var_stats
