@@ -29,7 +29,7 @@ function(data, fixed, random, r_group,
     if('ChosenModelResponse' %in% response) {
         stop('ChosenModelResponse is a reserved label of mresp list, please change it.')
     } 
-    if (fixed_interaction & length(fixed) == 1) {
+    if (fixed_interaction & length(fixed) == 1L) {
         cat('[-] No interaction to compute due to single fixed factor\n')
         fixed_interaction = FALSE
     }
@@ -61,7 +61,7 @@ function(data, fixed, random, r_group,
     }
 
     # Random factors formula
-    if (length(random) == 1 & length(r_group) == 1) {
+    if (length(random) == 1L & length(r_group) == 1L) {
         rand_formula = paste('(1+', random, '|', r_group, ')')
     } else {
         cat('[-] Random formula only supports one random and one grouping at this time.', fill = TRUE)
@@ -111,15 +111,45 @@ function(data, fixed, random, r_group,
             REML = FALSE)
         }
 
-
+        # Use formulas to run lmer models on each response variable
         out[[var]] <- list()
-        out[[var]][['void']] = do.call('mod.form', model_void)
-        out[[var]][['all']] = do.call('mod.form', model_all)
+
+        # suppressWarnings() should be update to print warnings referenced inside mresp object
+            # http://romainfrancois.blog.free.fr/index.php?post/2009/05/20/Disable-specific-warnings
+            ### The downside is that it removes all warnings, and this might not be what you want. Consider that simple function that gives two warnings:
+                #
+                # f <- function( x) {
+                # warning( "bla bla" )
+                # y <- x + 3
+                # warning( "yada yada" )
+                # y
+                # }
+                #
+                # > f(5)
+                # [1] 8
+                # Warning messages:
+                # 1: In f(5) : bla bla
+                # 2: In f(5) : yada yada
+                # > suppressWarnings( f(5) )
+                # [1] 8
+                # What if I wanted to remove "bla bla" warnings and not "yada yada" warnings,
+                #   because I know that "bla bla" warnings are expected and are more disturbing that useful.
+                # Currently, suppressWarnings does not offer that possibility,
+                #  but you can make you own calling handler that handles warnings the way you want:
+                #
+                # > h <- function(w) if( any( grepl( "bla", w) ) ) invokeRestart( "muffleWarning" )
+                # > withCallingHandlers( f(5), warning = h )
+                # [1] 8
+                # Warning message:
+                # In f(5) : yada yada
+
+        out[[var]][['void']] = suppressWarnings(do.call('mod.form', model_void))
+        out[[var]][['all']] = suppressWarnings(do.call('mod.form', model_all))
         for (m in model_fixed) {
-            out[[var]][[m]] = do.call('mod.form', get(m))
+            out[[var]][[m]] = suppressWarnings(do.call('mod.form', get(m)))
         }
         if (fixed_interaction) {
-            out[[var]][['inter']] = do.call('mod.form', model_inter)
+            out[[var]][['inter']] = suppressWarnings(do.call('mod.form', model_inter))
         }
         cat('\t\tdone\n')
     }

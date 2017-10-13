@@ -19,9 +19,9 @@ mod.check <- function(models, omit_NA=TRUE) {
         for (m in mod_names) {
 
             # Models comparision by Chi squared
-            chi_all = anova(models[[var]][[m]], models[[var]][['all']])$`Pr(>Chisq)`[2]
+            chi_all = anova(models[[var]][[m]], models[[var]][['all']])$`Pr(>Chisq)`[2L]
             all <- c(all, chi_all)
-            chi_void = anova(models[[var]][[m]], models[[var]][['void']])$`Pr(>Chisq)`[2]
+            chi_void = anova(models[[var]][[m]], models[[var]][['void']])$`Pr(>Chisq)`[2L]
             void <- c(void, chi_void)
 
             # Check sphericity
@@ -38,7 +38,7 @@ mod.check <- function(models, omit_NA=TRUE) {
             # Retrieve AIC, BIC, and logLik
             aic <- c(aic, AIC(models[[var]][[m]]))
             bic <- c(bic, BIC(models[[var]][[m]]))
-            lglik <- c(lglik, logLik(models[[var]][[m]])[1])
+            lglik <- c(lglik, logLik(models[[var]][[m]])[1L])
 
             
         }

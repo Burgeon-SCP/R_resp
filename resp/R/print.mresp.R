@@ -21,7 +21,7 @@ function(x, printall=FALSE, ...){
         for (j in n) {
           # Skip AIC and BIC values
           if(j %in% c('AIC','BIC')){next}
-          cat(round(a[i,j],3),'\t\t')}
+          cat(round(a[i,j],3L),'\t\t')}
         cat('\n')
       }
       cat('\n')
