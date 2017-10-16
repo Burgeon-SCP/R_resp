@@ -36,6 +36,9 @@ mod.resp(data, fixed, random, r_group, exclude,
   \item{check_models}{
 \code{logical}, DEFAULT \code{TRUE}, create \code{check_out} table for each response variable
 }
+  \item{lmer_warnings}{
+\code{logical}, DEFAULT \code{FALSE}, display \code{lmer()} construction warnings
+}
 }
 
 \value{
@@ -51,17 +54,35 @@ Returns \code{mresp} object with a list of response variables sorted alphabetica
 \code{lmer}, \code{stats}
 }
 \examples{
+n <- 500L
+tr <- c('T1','T2','T3')
+sp <- c('S1','S2','S3')
+gr <- c('A','B')
+F1 <- c();F2 <- c();F3 <- c()
+R1 <- c();R2 <- c();R3 <- c()
+for (i in 1:n) {
+ F1[i] <- tr[round(i/n*3,0)]
+ F2[i] <- sp[round(runif(1L,1L,3L),0)]
+ F3[i] <- gr[round(runif(1L,1L,2L),0)]
+ R1[i] <- rnorm(1,10,2)+runif(1L)+(which(tr==F1[i])*3)
+ R2[i] <- rnorm(1,10,2)+runif(1L)+(which(sp==F2[i])*10)
+ R3[i] <- rnorm(1,600,20)+runif(1L)+(which(tr==F1[i])*20)
+}
+table(F1,F2)
 
 x <- data.frame(
-    Treatment=rep(c('T1','T2','T3'),5),
-    Specie=rep(c('S1','S2','S3'),5),
-    Group=rep(c('A','B','C'),5),
-    Rand=runif(n = 15),
-    Heigth=c(runif(n=15)*10),
-    Diameter=c(seq(from=2,to=8,length.out=15)*runif(n=1)),
-    Number_leaves=c(seq(from=20,to=800,length.out=15)),
-    other=runif(n=15)
+    Treatment=F1,
+    Specie=F2,
+    Group=F3,
+    Rand=runif(n),
+    Heigth=R1,
+    Diameter=R2,
+    Number_leaves=R3,
+    other=runif(n)
 )
-mod.resp(data = x, fixed = c('Treatment','Specie'), random='Rand', r_group = c('Group'),exclude='other')
-
+# rm(n,tr,sp,gr,F1,F2,F3)
+a <- mod.resp(data = x, fixed = c('Treatment','Specie'), random='Rand',
+              r_group = c('Group'),exclude='other',lmer_warnings=TRUE,
+              choose_models=FALSE,check_models=FALSE)
+print(a)
 }

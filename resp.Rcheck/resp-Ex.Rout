@@ -1,0 +1,133 @@
+
+R version 3.4.1 (2017-06-30) -- "Single Candle"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "resp"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('resp')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("mod.resp")
+> ### * mod.resp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mod.resp
+> ### Title: Create response lmer models for a whole data.frame
+> ### Aliases: mod.resp
+> 
+> ### ** Examples
+> 
+> n <- 500L
+> tr <- c('T1','T2','T3')
+> sp <- c('S1','S2','S3')
+> gr <- c('A','B')
+> F1 <- c();F2 <- c();F3 <- c()
+> R1 <- c();R2 <- c();R3 <- c()
+> for (i in 1:n) {
++  F1[i] <- tr[round(i/n*3,0)]
++  F2[i] <- sp[round(runif(1L,1L,3L),0)]
++  F3[i] <- gr[round(runif(1L,1L,2L),0)]
++  R1[i] <- rnorm(1,10,2)+runif(1L)+(which(tr==F1[i])*3)
++  R2[i] <- rnorm(1,10,2)+runif(1L)+(which(sp==F2[i])*10)
++  R3[i] <- rnorm(1,600,20)+runif(1L)+(which(tr==F1[i])*20)
++ }
+> table(F1,F2)
+    F2
+F1   S1 S2 S3
+  T1 42 75 49
+  T2 40 84 43
+  T3 11 49 24
+> 
+> x <- data.frame(
++     Treatment=F1,
++     Specie=F2,
++     Group=F3,
++     Rand=runif(n),
++     Heigth=R1,
++     Diameter=R2,
++     Number_leaves=R3,
++     other=runif(n)
++ )
+> # rm(n,tr,sp,gr,F1,F2,F3)
+> a <- mod.resp(data = x, fixed = c('Treatment','Specie'), random='Rand',
++               r_group = c('Group'),exclude='other',lmer_warnings=TRUE,
++               choose_models=FALSE,check_models=FALSE)
+[?] Starting modelization on  3  response elements
+[+] Data row number:  500
+[+] Modeling response variables to :	 ~ Treatment + Specie (1+ Rand | Group ) 
+	1/3 Heigth: omit_NA n: 417		done
+	2/3 Diameter: omit_NA n: 417Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  unable to evaluate scaled gradient
+Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge: degenerate  Hessian with 1 negative eigenvalues
+Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  unable to evaluate scaled gradient
+Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge: degenerate  Hessian with 1 negative eigenvalues
+		done
+	3/3 Number_leaves: omit_NA n: 417Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  unable to evaluate scaled gradient
+Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge: degenerate  Hessian with 1 negative eigenvalues
+Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  unable to evaluate scaled gradient
+Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge: degenerate  Hessian with 1 negative eigenvalues
+Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.341228 (tol = 0.002, component 1)
+Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model is nearly unidentifiable: large eigenvalue ratio
+ - Rescale variables?
+Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  unable to evaluate scaled gradient
+Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge: degenerate  Hessian with 1 negative eigenvalues
+Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model failed to converge with max|grad| = 0.254309 (tol = 0.002, component 1)
+Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv,  :
+  Model is nearly unidentifiable: large eigenvalue ratio
+ - Rescale variables?
+		done
+> print(a)
+[?] Response model evaluation:
+[1] "Heigth"        "Diameter"      "Number_leaves"
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:lme4’, ‘package:Matrix’
+
+> nameEx("resp-package")
+> ### * resp-package
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: resp-package
+> ### Title: Creates response models for whole datasets
+> ### Aliases: resp-package resp
+> ### Keywords: package
+> 
+> ### ** Examples
+> 
+> ~~ simple examples of the most important functions ~~
+Error: unexpected symbol in "~~ simple examples"
+Execution halted

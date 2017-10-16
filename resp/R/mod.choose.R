@@ -64,10 +64,15 @@ mod.choose <-  function(models, force=FALSE, sph_range=c(0.05,0.8), corr_range=c
     if(identical(as.vector(mod),rep('Low',length(mod)))) {
       mod_name <- c(mod_name,'all'); next
     }
+
+    # #debug
+    # cat('\n\nmod selected for var: ',var,'\n')
+    # print(mod)
+
     # To Be Removed
-    if(identical(dim(mod),c(2L,2L))==FALSE) {
-      stop('mod.choose still not implemented for more than 2 fixed factors')
-    } else {
+    if(identical(dim(mod),c(2L,2L))==FALSE) stop('mod.choose() still not implemented for more than 2 fixed factors')
+
+    else {
       # Choose between fixed factors
       rmod <- mod[2:1,]
       if(identical(diag(mod),c('Low','Low'))) {
@@ -76,9 +81,12 @@ mod.choose <-  function(models, force=FALSE, sph_range=c(0.05,0.8), corr_range=c
         } else {
           mod_name <- c(mod_name,
                         paste(dimnames(mod)[[1L]][1L],
-                        if(diag(rmod)[1L]=='High') {'>>'} else {paste('>(',diag(rmod)[1L],')')},
-                        dimnames(rmod)[[1L]][1L],
-                        diag(rmod)[2L],
+                        if(diag(rmod)[1L]=='High') {''} else {
+                          paste('>(',diag(rmod)[1L],')',
+                          dimnames(rmod)[[1L]][1L],
+                          diag(rmod)[2L],
+                          sep='')
+                        },
                         sep='')); next
         }
 
@@ -92,6 +100,18 @@ mod.choose <-  function(models, force=FALSE, sph_range=c(0.05,0.8), corr_range=c
       } else {mod_name <- c(mod_name,'ToDo::fail'); next}
     }
 
+    #debug
+    cat('resp::mod_name: \n')
+    print(mod_name)
+    # cat('resp::var: \n');
+    print(var)
+    # cat('resp::response: \n');print(response)
+    cat('resp::: \n')
+
+    # Add info for selected model
+    y <- mod_name[length(mod_name)]
+    sph_name <- c(sph_name,a[['Sphericity']])
+    corr_name <- c(corr_name,named_range(response[n,'Correlation'],corr_range))
   }
 
   # Return result inside mresp object
@@ -99,7 +119,7 @@ mod.choose <-  function(models, force=FALSE, sph_range=c(0.05,0.8), corr_range=c
     Variable=response,
     Model=mod_name#,
     # Sphericity=sph_name,
-    # Correlation=cor_name
+    # Correlation=corr_name
   )
   models[['ChosenModelResponse']] <- out
   return(models)

@@ -1,0 +1,9 @@
+formula_from_vec        Formula string creation from 'vector' elements
+log.dataset             log-transform data.frame
+mod.check               check models to recover performance information
+mod.resp                Create response lmer models for a whole
+                        data.frame
+name_range              Numeric data categorization between user-given
+                        ranges
+print.mresp             Print method for 'mresp' objects
+resp-package            Creates response models for whole datasets

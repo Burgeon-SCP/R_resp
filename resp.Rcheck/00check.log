@@ -1,0 +1,148 @@
+* using log directory ‘/disk2/Documentos/ProjectesR/resp/resp.Rcheck’
+* using R version 3.4.1 (2017-06-30)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* checking for file ‘resp/DESCRIPTION’ ... OK
+* this is package ‘resp’ version ‘1.0.2’
+* package encoding: UTF-8
+* checking package namespace information ... OK
+* checking package dependencies ... OK
+* checking if this is a source package ... OK
+* checking if there is a namespace ... OK
+* checking for executable files ... OK
+* checking for hidden files and directories ... NOTE
+Found the following hidden files and directories:
+  man/.Rhistory
+These were most likely included in error. See section ‘Package
+structure’ in the ‘Writing R Extensions’ manual.
+* checking for portable file names ... OK
+* checking for sufficient/correct file permissions ... OK
+* checking whether package ‘resp’ can be installed ... OK
+* checking installed package size ... OK
+* checking package directory ... OK
+* checking DESCRIPTION meta-information ... NOTE
+Authors@R field gives no person with maintainer role, valid email
+address and non-empty name.
+Checking should be performed on sources prepared by ‘R CMD build’.
+* checking top-level files ... OK
+* checking for left-over files ... OK
+* checking index information ... OK
+* checking package subdirectories ... OK
+* checking R files for non-ASCII characters ... OK
+* checking R files for syntax errors ... OK
+* checking whether the package can be loaded ... OK
+* checking whether the package can be loaded with stated dependencies ... OK
+* checking whether the package can be unloaded cleanly ... OK
+* checking whether the namespace can be loaded with stated dependencies ... OK
+* checking whether the namespace can be unloaded cleanly ... OK
+* checking loading without being on the library search path ... OK
+* checking dependencies in R code ... WARNING
+'library' or 'require' call not declared from: ‘lme4’
+'library' or 'require' calls in package code:
+  ‘lme4’ ‘stats’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+Namespaces in Imports field not imported from:
+  ‘lme4’ ‘stats’
+  All declared Imports should be used.
+* checking S3 generic/method consistency ... WARNING
+log:
+  function(x, base)
+log.dataset:
+  function(data, columns)
+
+See section ‘Generic functions and methods’ in the ‘Writing R
+Extensions’ manual.
+* checking replacement functions ... OK
+* checking foreign function calls ... OK
+* checking R code for possible problems ... NOTE
+formula_from_vec: no visible global function definition for
+  ‘as.formula’
+mod.check: no visible global function definition for ‘anova’
+mod.check: no visible global function definition for ‘shapiro.test’
+mod.check: no visible global function definition for ‘residuals’
+mod.check: no visible global function definition for ‘cor.test’
+mod.check: no visible global function definition for ‘na.omit’
+mod.check: no visible global function definition for ‘fitted’
+mod.check: no visible global function definition for ‘AIC’
+mod.check: no visible global function definition for ‘BIC’
+mod.check: no visible global function definition for ‘logLik’
+mod.choose: no visible global function definition for ‘named_range’
+mod.choose: no visible binding for global variable ‘n’
+mod.resp : mod.form: no visible global function definition for ‘lmer’
+mod.resp: no visible global function definition for ‘na.omit’
+mod.resp: no visible global function definition for ‘as.formula’
+name_range.default: possible error in which(mid = i): unused argument
+  (mid = i)
+Undefined global functions or variables:
+  AIC BIC anova as.formula cor.test fitted lmer logLik n na.omit
+  named_range residuals shapiro.test
+Consider adding
+  importFrom("stats", "AIC", "BIC", "anova", "as.formula", "cor.test",
+             "fitted", "logLik", "na.omit", "residuals", "shapiro.test")
+to your NAMESPACE file.
+* checking Rd files ... OK
+* checking Rd metadata ... OK
+* checking Rd cross-references ... WARNING
+Unknown package ‘<pkg>’ in Rd xrefs
+* checking for missing documentation entries ... WARNING
+Undocumented code objects:
+  ‘mod.choose’ ‘name_range.data.frame’ ‘name_range.default’
+  ‘name_range.numeric’
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking for code/documentation mismatches ... WARNING
+Codoc mismatches from documentation object 'mod.resp':
+mod.resp
+  Code: function(data, fixed, random, r_group, exclude, omit_NA = TRUE,
+                 fixed_interaction = TRUE, check_models = TRUE,
+                 choose_models = TRUE, lmer_warnings = FALSE)
+  Docs: function(data, fixed, random, r_group, exclude, omit_NA = TRUE,
+                 fixed_interaction = TRUE, check_models = TRUE)
+  Argument names in code not in docs:
+    choose_models lmer_warnings
+
+* checking Rd \usage sections ... WARNING
+Documented arguments not in \usage in documentation object 'mod.resp':
+  ‘lmer_warnings’
+
+Functions with \usage entries need to have the appropriate \alias
+entries, and all their arguments documented.
+The \usage entries must correspond to syntactically valid R code.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+S3 methods shown with full name in documentation object 'log.dataset':
+  ‘log.dataset’
+
+The \usage entries for S3 methods should use the \method markup and not
+their full name.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
+* checking Rd contents ... OK
+* checking for unstated dependencies in examples ... WARNING
+Warning: parse error in file 'resp-Ex.R':
+11: unexpected symbol
+65: 
+66: ~~ simple examples
+              ^
+* checking examples ... ERROR
+Running examples in ‘resp-Ex.R’ failed
+The error most likely occurred in:
+
+> ### Name: resp-package
+> ### Title: Creates response models for whole datasets
+> ### Aliases: resp-package resp
+> ### Keywords: package
+> 
+> ### ** Examples
+> 
+> ~~ simple examples of the most important functions ~~
+Error: unexpected symbol in "~~ simple examples"
+Execution halted
+* checking PDF version of manual ... WARNING
+LaTeX errors when creating PDF version.
+This typically indicates Rd problems.
+* checking PDF version of manual without hyperrefs or index ... OK
+* DONE
+Status: 1 ERROR, 8 WARNINGs, 3 NOTEs

@@ -3,7 +3,8 @@ function(data, fixed, random, r_group,
         exclude, omit_NA=TRUE,
         fixed_interaction=TRUE,
         check_models=TRUE,
-        choose_models=TRUE) {
+        choose_models=TRUE,
+        lmer_warnings=FALSE) {
 
     require(lme4, quietly = TRUE)
     # require(nlme, quietly = TRUE)
@@ -143,13 +144,26 @@ function(data, fixed, random, r_group,
                 # Warning message:
                 # In f(5) : yada yada
 
-        out[[var]][['void']] = suppressWarnings(do.call('mod.form', model_void))
-        out[[var]][['all']] = suppressWarnings(do.call('mod.form', model_all))
-        for (m in model_fixed) {
-            out[[var]][[m]] = suppressWarnings(do.call('mod.form', get(m)))
-        }
-        if (fixed_interaction) {
-            out[[var]][['inter']] = suppressWarnings(do.call('mod.form', model_inter))
+        if(lmer_warnings) {
+            out[[var]][['void']] = do.call('mod.form', model_void)
+            out[[var]][['all']] = do.call('mod.form', model_all)
+            for (m in model_fixed) {
+                out[[var]][[m]] = do.call('mod.form', get(m))
+            }
+            if (fixed_interaction) {
+                out[[var]][['inter']] = do.call('mod.form', model_inter)
+            }
+
+        } else {
+            out[[var]][['void']] = suppressWarnings(do.call('mod.form', model_void))
+            out[[var]][['all']] = suppressWarnings(do.call('mod.form', model_all))
+            for (m in model_fixed) {
+                out[[var]][[m]] = suppressWarnings(do.call('mod.form', get(m)))
+            }
+            if (fixed_interaction) {
+                out[[var]][['inter']] = suppressWarnings(do.call('mod.form', model_inter))
+            }
+
         }
         cat('\t\tdone\n')
     }
