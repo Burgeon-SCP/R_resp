@@ -1,0 +1,10 @@
+
+.R*
+!.RTest
+
+*/src/*.o
+*/src/*.so
+*/src/*.dll
+
+resp.Rcheck
+!*.Rcheck/*-manual.pdf
