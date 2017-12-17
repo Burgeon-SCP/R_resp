@@ -1,15 +1,31 @@
-## resp to be developed file
+## `R::resp` To Be Developed file
 
-- hide and redirect warning messages after lmer() calculation returned by mod.resp():
+- Hide and redirect warning messages after `lmer()` calculation returned by `mod.resp()`:
     - could be printed on calculation due to model inner fails
-    - actual suppressWarnings() hides everything
-    - should be added as message on "[+] Modeling response variables.." 
+    - actual `suppressWarnings()` hides everything
+    - should be added as message on "`[+] Modeling response variables..`" 
 
-- mresp.check() to analyse mresp object structure:
-    - has UserDataFrame and ChosenModelResponse
-    - is a list of list execpt the two previous dataframes
-    - each variable is a list of models [with a 'check_out' dataframe if checked]
-    - has mod.choose() results?
-    - has errors?
+- Use `mresp.check()` to analyse `mresp` object structure:
+    - Has `UserDataFrame` and `ChosenModelResponse` ?
+    - Is a list of lists except the two previous dataframes ?
+    - Each variable is a list of models ?
+    - Has a `check_out` dataframe if checked ?
+    - Has `mod.choose()` results ?
+    - Has errors ?
 
-- create tell() function to improve clarity and debugging of package code.
+- Create `tell()` function to improve clarity and debugging of package code.
+
+### Abstract `glist()` creation from `factor_stats.R` and `anova.nested.data.R`:
+
+Must be using same data structures based on tables of lists of data groups
+
+ 1. Creation of `out` list
+ 1. Creation of `params` list
+ 1. Insert `for ()` in result calculation
+ 1. Use each necessary function with `do.call()`
+    1. may include also:
+       - nested anovas
+       - mixed models
+       - basic factor analysis
+       - peer-reviewed-type tables
+       - plot images generation
