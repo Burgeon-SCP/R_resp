@@ -77,6 +77,7 @@ factor_stats <- function(dataset, factors = c("Specie", "Treatment"), response =
         s <- t - t
         p <- t - t
         normal <- t - t
+        n <- t - t
         
         # cat('[debug]: initial objects definitions');print(l);print(t)
         
@@ -86,6 +87,7 @@ factor_stats <- function(dataset, factors = c("Specie", "Treatment"), response =
                 g <- as.numeric(as.character(l[[pos(i, j)]]))
                 # log transform g[which(g!=0)] <- log(g[which(g!=0)])
                 s[i, j] <- sum(g)
+                n[i, j] <- length(g)
                 
                 if (identical(g, rep(g[1L], length(g)))) {
                   low[i, j] <- g[1L]
@@ -118,7 +120,7 @@ factor_stats <- function(dataset, factors = c("Specie", "Treatment"), response =
         }
         # Return rounded values TODO: Adapt to dataset decimals
         out <- list(low = round(low, 2L), mean = round(m, 2L), top = round(top, 2L), 
-            n = t, p.value = p, sum = s, SW_norm = normal)
+            n = n, p.value = p, sum = s, SW_norm = normal)
     }
     
     melted <- function(x = out) {
